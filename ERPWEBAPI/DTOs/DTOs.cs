@@ -9,18 +9,18 @@ namespace ElevateERP.API.DTOs
     // ─── FIRM ─────────────────────────────────────────────────────────────────
     public class FirmDto
     {
-        public int     Id       { get; set; }
-        public string  FirmName { get; set; } = "";
-        public string? Address  { get; set; }
-        public string? Phone    { get; set; }
-        public string? Email    { get; set; }
+        public int Id { get; set; }
+        public string FirmName { get; set; } = "";
+        public string? Address { get; set; }
+        public string? Phone { get; set; }
+        public string? Email { get; set; }
     }
     public class FirmCreateDto
     {
-        public string  FirmName { get; set; } = "";
-        public string? Address  { get; set; }
-        public string? Phone    { get; set; }
-        public string? Email    { get; set; }
+        public string FirmName { get; set; } = "";
+        public string? Address { get; set; }
+        public string? Phone { get; set; }
+        public string? Email { get; set; }
     }
     // DTO returned to the client for listing reports
     public class ImportReportDto
@@ -43,27 +43,27 @@ namespace ElevateERP.API.DTOs
     // ─── DEPARTMENT ───────────────────────────────────────────────────────────
     public class DepartmentDto
     {
-        public int     Id             { get; set; }
-        public string  DepartmentName { get; set; } = "";
-        public string? Description    { get; set; }
+        public int Id { get; set; }
+        public string DepartmentName { get; set; } = "";
+        public string? Description { get; set; }
     }
     public class DepartmentCreateDto
     {
-        public string  DepartmentName { get; set; } = "";
-        public string? Description    { get; set; }
+        public string DepartmentName { get; set; } = "";
+        public string? Description { get; set; }
     }
 
     // ─── CATEGORY ─────────────────────────────────────────────────────────────
     public class CategoryDto
     {
-        public int     Id           { get; set; }
-        public string  CategoryName { get; set; } = "";
-        public string? Description  { get; set; }
+        public int Id { get; set; }
+        public string CategoryName { get; set; } = "";
+        public string? Description { get; set; }
     }
     public class CategoryCreateDto
     {
-        public string  CategoryName { get; set; } = "";
-        public string? Description  { get; set; }
+        public string CategoryName { get; set; } = "";
+        public string? Description { get; set; }
     }
 
     // ─── STAFF ────────────────────────────────────────────────────────────────
@@ -154,40 +154,40 @@ namespace ElevateERP.API.DTOs
     // ─── REWARD ───────────────────────────────────────────────────────────────
     public class RewardDto
     {
-        public int      Id          { get; set; }
-        public string   RewardName  { get; set; } = "";
-        public string?  Description { get; set; }
+        public int Id { get; set; }
+        public string RewardName { get; set; } = "";
+        public string? Description { get; set; }
         public decimal? PointsValue { get; set; }
     }
     public class RewardCreateDto
     {
-        public string   RewardName  { get; set; } = "";
-        public string?  Description { get; set; }
+        public string RewardName { get; set; } = "";
+        public string? Description { get; set; }
         public decimal? PointsValue { get; set; }
     }
     public class StaffRewardCreateDto
     {
-        public int    StaffId  { get; set; }
-        public int    RewardId { get; set; }
-        public string? Notes   { get; set; }
+        public int StaffId { get; set; }
+        public int RewardId { get; set; }
+        public string? Notes { get; set; }
     }
     public class StaffRewardDto
     {
-        public int      Id         { get; set; }
-        public int      StaffId    { get; set; }
-        public string?  StaffName  { get; set; }
-        public int      RewardId   { get; set; }
-        public string?  RewardName { get; set; }
-        public string?  Notes      { get; set; }
-        public DateTime AwardedAt  { get; set; }
+        public int Id { get; set; }
+        public int StaffId { get; set; }
+        public string? StaffName { get; set; }
+        public int RewardId { get; set; }
+        public string? RewardName { get; set; }
+        public string? Notes { get; set; }
+        public DateTime AwardedAt { get; set; }
     }
 
     // ─── PERFORMANCE ──────────────────────────────────────────────────────────
     public class PerformanceDto
     {
 
-        public int      Id         { get; set; }
-        public string? Name { get; set; } 
+        public int Id { get; set; }
+        public string? Name { get; set; }
 
         public string? Marks { get; set; }
         //public int      StaffId    { get; set; }
@@ -234,24 +234,24 @@ namespace ElevateERP.API.DTOs
 
         public string Option4 { get; set; } = string.Empty;
     }
-        public class StaffFeedbackCreateDto
-        {
-            public string StaffName { get; set; } = string.Empty;
-            public int FeedbackId { get; set; }               // 0 when custom question
-            public string SelectedAnswer { get; set; } = string.Empty;
-            public string? CustomQuestion { get; set; }        // filled when typing manually
-        }
+    public class StaffFeedbackCreateDto
+    {
+        public string StaffName { get; set; } = string.Empty;
+        public int FeedbackId { get; set; }               // 0 when custom question
+        public string SelectedAnswer { get; set; } = string.Empty;
+        public string? CustomQuestion { get; set; }        // filled when typing manually
+    }
 
-        public class StaffFeedbackDto
-        {
-            public int Id { get; set; }
-            public int FeedbackId { get; set; }
-            public string FeedbackQuestion { get; set; } = string.Empty;
-            public string StaffName { get; set; } = string.Empty;
-            public string Feedback { get; set; } = string.Empty;
-            public string FeedbackDate { get; set; } = string.Empty;
-        }
-    
+    public class StaffFeedbackDto
+    {
+        public int Id { get; set; }
+        public int FeedbackId { get; set; }
+        public string FeedbackQuestion { get; set; } = string.Empty;
+        public string StaffName { get; set; } = string.Empty;
+        public string Feedback { get; set; } = string.Empty;
+        public string FeedbackDate { get; set; } = string.Empty;
+    }
+
     // ─── SURPRISE ─────────────────────────────────────────────────────────────
     //public class SurpriseDto
     //{
@@ -325,36 +325,36 @@ namespace ElevateERP.API.DTOs
     // ─── FOLLOW UP ────────────────────────────────────────────────────────────
     public class FollowUpDto
     {
-        public int      Id           { get; set; }
-        public int      StaffId      { get; set; }
-        public string?  StaffName    { get; set; }
-        public string?  Title        { get; set; }
-        public string?  Description  { get; set; }
+        public int Id { get; set; }
+        public int StaffId { get; set; }
+        public string? StaffName { get; set; }
+        public string? Title { get; set; }
+        public string? Description { get; set; }
         public DateTime FollowUpDate { get; set; }
-        public string?  Status       { get; set; }
+        public string? Status { get; set; }
     }
     public class FollowUpCreateDto
     {
-        public int      StaffId      { get; set; }
-        public string?  Title        { get; set; }
-        public string?  Description  { get; set; }
+        public int StaffId { get; set; }
+        public string? Title { get; set; }
+        public string? Description { get; set; }
         public DateTime FollowUpDate { get; set; }
-        public string?  Status       { get; set; } = "Pending";
+        public string? Status { get; set; } = "Pending";
     }
 
     // ─── SHIFT ────────────────────────────────────────────────────────────────
     public class ShiftDto
     {
-        public int    Id        { get; set; }
+        public int Id { get; set; }
         public string ShiftName { get; set; } = "";
         public string StartTime { get; set; } = "";
-        public string EndTime   { get; set; } = "";
+        public string EndTime { get; set; } = "";
     }
     public class ShiftCreateDto
     {
         public string ShiftName { get; set; } = "";
         public string StartTime { get; set; } = ""; // "HH:mm"
-        public string EndTime   { get; set; } = "";
+        public string EndTime { get; set; } = "";
     }
     public class StaffShiftDto
     {
@@ -377,9 +377,9 @@ namespace ElevateERP.API.DTOs
         public string StartTime { get; set; } = ""; // "HH:mm"
         public string EndTime { get; set; } = "";   // "HH:mm"
     }
-   
 
-    
+
+
     //// ─── ATTENDANCE ───────────────────────────────────────────────────────────
     public class StaffDropdownDto
     {
@@ -409,7 +409,7 @@ namespace ElevateERP.API.DTOs
         public int Id { get; set; }
         public string Name { get; set; } = "";   // always lowercase "name"
     }
-    
+
     // ─── LEAVE ────────────────────────────────────────────────────────────────
     // DTOs/LeaveDto.cs
     public class LeaveDto
@@ -624,13 +624,14 @@ namespace ElevateERP.API.DTOs
     public class DSICreateDto
     {
         public int StaffId { get; set; }
-        public int? DepartmentId { get; set; }
+        public int? DepartmentId { get; set; }          // nullable — optional field
         public string Problem { get; set; } = "";
         public int Priority { get; set; } = 0;
         public string Message { get; set; } = "";
-        public bool IsSolved { get; set; } = false;
+        public string IsSolved { get; set; } = "false"; // string — parsed manually in controller
         public DateTime RecordDate { get; set; } = DateTime.Today;
     }
+
     //staff policy
     public class StaffPolicyDto
     {

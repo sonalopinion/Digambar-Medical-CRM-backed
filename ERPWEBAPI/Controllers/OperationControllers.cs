@@ -9,9 +9,9 @@ using ClosedXML.Excel;
 namespace ElevateERP.API.Controllers
 {
     // ─── SHIFTS ───────────────────────────────────────────────────────────────
-    
 
-    [ApiController ,Route("api/[controller]")]
+
+    [ApiController, Route("api/[controller]")]
     public class StaffFeedbackController : ControllerBase
     {
         private readonly AppDbContext _db;
@@ -61,43 +61,43 @@ namespace ElevateERP.API.Controllers
             return Ok(data);
         }
 
-    //    [HttpGet]
-    //    public async Task<IActionResult> GetAllBYDate(
-    //[FromQuery] string? staffName,
-    //[FromQuery] string? month)
-    //    {
-    //        var query = _db.StaffFeedbacks
-    //            .Include(x => x.Feedback)
-    //            .AsQueryable();
+        //    [HttpGet]
+        //    public async Task<IActionResult> GetAllBYDate(
+        //[FromQuery] string? staffName,
+        //[FromQuery] string? month)
+        //    {
+        //        var query = _db.StaffFeedbacks
+        //            .Include(x => x.Feedback)
+        //            .AsQueryable();
 
-    //        if (!string.IsNullOrWhiteSpace(staffName))
-    //        {
-    //            query = query.Where(x => x.StaffName == staffName);
-    //        }
+        //        if (!string.IsNullOrWhiteSpace(staffName))
+        //        {
+        //            query = query.Where(x => x.StaffName == staffName);
+        //        }
 
-    //        if (!string.IsNullOrWhiteSpace(month) &&
-    //            DateTime.TryParse(month, out var selectedDate))
-    //        {
-    //            query = query.Where(x =>
-    //                x.FeedbackDate.Date == selectedDate.Date);
-    //        }
+        //        if (!string.IsNullOrWhiteSpace(month) &&
+        //            DateTime.TryParse(month, out var selectedDate))
+        //        {
+        //            query = query.Where(x =>
+        //                x.FeedbackDate.Date == selectedDate.Date);
+        //        }
 
-    //        var raw = await query
-    //            .OrderByDescending(x => x.Id)
-    //            .ToListAsync();
+        //        var raw = await query
+        //            .OrderByDescending(x => x.Id)
+        //            .ToListAsync();
 
-    //        var data = raw.Select(x => new StaffFeedbackDto
-    //        {
-    //            Id = x.Id,
-    //            FeedbackId = x.FeedbackId,
-    //            FeedbackQuestion = x.Feedback?.Question ?? "",
-    //            StaffName = x.StaffName,
-    //            Feedback = x.SelectedAnswer,
-    //            FeedbackDate = x.FeedbackDate.ToString("yyyy-MM-dd")
-    //        }).ToList();
+        //        var data = raw.Select(x => new StaffFeedbackDto
+        //        {
+        //            Id = x.Id,
+        //            FeedbackId = x.FeedbackId,
+        //            FeedbackQuestion = x.Feedback?.Question ?? "",
+        //            StaffName = x.StaffName,
+        //            Feedback = x.SelectedAnswer,
+        //            FeedbackDate = x.FeedbackDate.ToString("yyyy-MM-dd")
+        //        }).ToList();
 
-    //        return Ok(data);
-    //    }
+        //        return Ok(data);
+        //    }
 
         // GET /api/stafffeedback/staff-names
         [HttpGet("staff-names")]
@@ -177,7 +177,7 @@ namespace ElevateERP.API.Controllers
             return Ok(new { message = "Feedback submitted successfully", id = item.Id });
         }
     }
-    
+
     //public class StaffFeedbackController : ControllerBase
     //{
     //    private readonly AppDbContext _db;
@@ -705,31 +705,53 @@ namespace ElevateERP.API.Controllers
         public async Task<IActionResult> Create(
             [FromBody] CreateStaffAttendanceDto dto)
         {
-            if (dto == null)
-                return BadRequest("Request body is required.");
-
-            if (dto.OutDate <= dto.InDate)
-                return BadRequest("Out date must be after in date.");
-
-            var staff = await _db.Staff
-                .FirstOrDefaultAsync(x => x.Id == dto.StaffId);
-
-            if (staff == null)
-                return BadRequest("Invalid Staff");
-
-            var attendance = new Attendance
+            try
             {
-                StaffId = dto.StaffId,
-                Date = dto.InDate.Date,
-                ClockIn = dto.InDate,
-                ClockOut = dto.OutDate,
-                Status = dto.Status
-            };
+                if (dto == null)
+                    return BadRequest("Request body is required.");
 
-            _db.Attendances.Add(attendance);
-            await _db.SaveChangesAsync();
+                if (dto.OutDate <= dto.InDate)
+                    return BadRequest("Out date must be after in date.");
 
-            return Ok(new { message = "Attendance added successfully" });
+                var staff = await _db.Staff
+                    .FirstOrDefaultAsync(x => x.Id == dto.StaffId);
+
+                if (staff == null)
+                    return BadRequest("Invalid Staff");
+                var inDateUtc = dto.InDate.Kind == DateTimeKind.Unspecified
+    ? DateTime.SpecifyKind(dto.InDate, DateTimeKind.Utc)
+    : dto.InDate.ToUniversalTime();
+
+                var outDateUtc = dto.OutDate.Kind == DateTimeKind.Unspecified
+                    ? DateTime.SpecifyKind(dto.OutDate, DateTimeKind.Utc)
+                    : dto.OutDate.ToUniversalTime();
+
+                var attendance = new Attendance
+                {
+                    StaffId = dto.StaffId,
+                    //Date = dto.InDate.Date,
+                    Date = inDateUtc.Date,
+                    //ClockIn = dto.InDate,
+                    //ClockOut = dto.OutDate,
+                    ClockIn = inDateUtc,
+                    ClockOut = outDateUtc,
+                    Status = dto.Status
+                };
+
+                _db.Attendances.Add(attendance);
+                await _db.SaveChangesAsync();
+
+                return Ok(new { message = "Attendance added successfully" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    Message = ex.Message,
+                    InnerException = ex.InnerException?.Message,
+                    StackTrace = ex.StackTrace
+                });
+            }
         }
 
         // DELETE /api/StaffAttendance/{id}
@@ -746,6 +768,7 @@ namespace ElevateERP.API.Controllers
             return Ok(new { message = "Attendance deleted successfully" });
         }
     }
+
     //[HttpGet]
     //public async Task<IActionResult> GetAttendance(
     //    [FromQuery] string? staff,
@@ -905,8 +928,8 @@ namespace ElevateERP.API.Controllers
             return Ok(new { message = "Deleted successfully" });
         }
     }
-    
-    
+
+
     // ─── TASKS ────────────────────────────────────────────────────────────────
     [ApiController, Route("api/[controller]")]
     public class TasksController : ControllerBase
@@ -1159,7 +1182,7 @@ namespace ElevateERP.API.Controllers
             return $"/attachments/{fileName}";
         }
     }
-    
+
     // ─── DSI ──────────────────────────────────────────────────────────────────
     [ApiController, Route("api/[controller]")]
 
@@ -1174,7 +1197,7 @@ namespace ElevateERP.API.Controllers
             _env = env;
         }
 
-        // GET /api/DSI
+        // ── GET /api/DSI ────────────────────────────────────────────────────────
         [HttpGet]
         public async Task<IActionResult> GetAll(
             [FromQuery] int? staffId,
@@ -1208,49 +1231,123 @@ namespace ElevateERP.API.Controllers
 
             return Ok(list);
         }
-
-        // POST /api/DSI  (multipart/form-data for document upload)
         [HttpPost]
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> Create(
-            [FromForm] DSICreateDto dto,
-            IFormFile? document)
+    [FromForm] DSICreateDto dto,
+    IFormFile? document)
         {
-            if (dto.StaffId <= 0)
-                return BadRequest("StaffId is required.");
-            if (string.IsNullOrWhiteSpace(dto.Problem))
-                return BadRequest("Problem is required.");
-
-            string? docPath = null;
-            if (document != null && document.Length > 0)
+            try
             {
-                var uploads = Path.Combine(_env.WebRootPath, "uploads", "dsi");
-                Directory.CreateDirectory(uploads);
-                var fileName = $"{Guid.NewGuid()}{Path.GetExtension(document.FileName)}";
-                var filePath = Path.Combine(uploads, fileName);
-                using var stream = System.IO.File.Create(filePath);
-                await document.CopyToAsync(stream);
-                docPath = $"/uploads/dsi/{fileName}";
+                if (dto.StaffId <= 0)
+                    return BadRequest("StaffId is required.");
+
+                if (string.IsNullOrWhiteSpace(dto.Problem))
+                    return BadRequest("Problem is required.");
+
+                // Parse IsSolved
+                var isSolved = dto.IsSolved?.Equals("true", StringComparison.OrdinalIgnoreCase) ?? false;
+
+                string? docPath = null;
+
+                if (document != null && document.Length > 0)
+                {
+                    var webRoot = _env.WebRootPath
+                        ?? Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+
+                    var uploads = Path.Combine(webRoot, "uploads", "dsi");
+                    Directory.CreateDirectory(uploads);
+
+                    var fileName = $"{Guid.NewGuid()}{Path.GetExtension(document.FileName)}";
+                    var filePath = Path.Combine(uploads, fileName);
+
+                    using var stream = System.IO.File.Create(filePath);
+                    await document.CopyToAsync(stream);
+
+                    docPath = $"/uploads/dsi/{fileName}";
+                }
+
+                var record = new DSIRecord
+                {
+                    StaffId = dto.StaffId,
+                    DepartmentId = dto.DepartmentId,
+                    Problem = dto.Problem,
+                    Priority = dto.Priority,
+                    Message = dto.Message ?? "",
+                    IsSolved = isSolved,
+                    DocumentPath = docPath,
+                    //RecordDate = dto.RecordDate == default ? DateTime.Today : dto.RecordDate
+                    RecordDate = dto.RecordDate == default
+    ? DateTime.UtcNow
+    : dto.RecordDate.ToUniversalTime()
+                };
+
+                _db.DSIRecords.Add(record);
+                await _db.SaveChangesAsync();
+
+                return Ok(new
+                {
+                    message = "DSI record added successfully."
+                });
             }
-
-            var record = new DSIRecord
+            catch (Exception ex)
             {
-                StaffId = dto.StaffId,
-                DepartmentId = dto.DepartmentId,
-                Problem = dto.Problem,
-                Priority = dto.Priority,
-                Message = dto.Message,
-                IsSolved = dto.IsSolved,
-                DocumentPath = docPath,
-                RecordDate = dto.RecordDate == default ? DateTime.Today : dto.RecordDate
-            };
-
-            _db.DSIRecords.Add(record);
-            await _db.SaveChangesAsync();
-            return Ok(new { message = "DSI record added successfully." });
+                return StatusCode(500, new
+                {
+                    Message = ex.Message,
+                    InnerException = ex.InnerException?.Message,
+                    StackTrace = ex.StackTrace
+                });
+            }
         }
+        // ── POST /api/DSI ───────────────────────────────────────────────────────
+        //[HttpPost]
+        //[Consumes("multipart/form-data")]
+        //public async Task<IActionResult> Create(
+        //    [FromForm] DSICreateDto dto,
+        //    IFormFile? document)
+        //{
+        //    if (dto.StaffId <= 0)
+        //        return BadRequest("StaffId is required.");
+        //    if (string.IsNullOrWhiteSpace(dto.Problem))
+        //        return BadRequest("Problem is required.");
 
-        // PUT /api/DSI/{id}
+        //    // FIX: parse IsSolved from string to avoid multipart bool-binding issues
+        //    var isSolved = dto.IsSolved?.Equals("true", StringComparison.OrdinalIgnoreCase) ?? false;
+
+        //    // FIX: guard WebRootPath null — happens when wwwroot folder doesn't exist
+        //    string? docPath = null;
+        //    if (document != null && document.Length > 0)
+        //    {
+        //        var webRoot = _env.WebRootPath
+        //            ?? Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+        //        var uploads = Path.Combine(webRoot, "uploads", "dsi");
+        //        Directory.CreateDirectory(uploads);
+        //        var fileName = $"{Guid.NewGuid()}{Path.GetExtension(document.FileName)}";
+        //        var filePath = Path.Combine(uploads, fileName);
+        //        using var stream = System.IO.File.Create(filePath);
+        //        await document.CopyToAsync(stream);
+        //        docPath = $"/uploads/dsi/{fileName}";
+        //    }
+
+        //    var record = new DSIRecord
+        //    {
+        //        StaffId = dto.StaffId,
+        //        DepartmentId = dto.DepartmentId,
+        //        Problem = dto.Problem,
+        //        Priority = dto.Priority,
+        //        Message = dto.Message ?? "",
+        //        IsSolved = isSolved,
+        //        DocumentPath = docPath,
+        //        RecordDate = dto.RecordDate == default ? DateTime.Today : dto.RecordDate
+        //    };
+
+        //    _db.DSIRecords.Add(record);
+        //    await _db.SaveChangesAsync();
+        //    return Ok(new { message = "DSI record added successfully." });
+        //}
+
+        // ── PUT /api/DSI/{id} ───────────────────────────────────────────────────
         [HttpPut("{id}")]
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> Update(
@@ -1261,9 +1358,15 @@ namespace ElevateERP.API.Controllers
             var record = await _db.DSIRecords.FindAsync(id);
             if (record == null) return NotFound();
 
+            // FIX: parse IsSolved from string to avoid multipart bool-binding issues
+            var isSolved = dto.IsSolved?.Equals("true", StringComparison.OrdinalIgnoreCase) ?? false;
+
+            // FIX: guard WebRootPath null
             if (document != null && document.Length > 0)
             {
-                var uploads = Path.Combine(_env.WebRootPath, "uploads", "dsi");
+                var webRoot = _env.WebRootPath
+                    ?? Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+                var uploads = Path.Combine(webRoot, "uploads", "dsi");
                 Directory.CreateDirectory(uploads);
                 var fileName = $"{Guid.NewGuid()}{Path.GetExtension(document.FileName)}";
                 var filePath = Path.Combine(uploads, fileName);
@@ -1276,15 +1379,15 @@ namespace ElevateERP.API.Controllers
             record.DepartmentId = dto.DepartmentId;
             record.Problem = dto.Problem;
             record.Priority = dto.Priority;
-            record.Message = dto.Message;
-            record.IsSolved = dto.IsSolved;
+            record.Message = dto.Message ?? "";
+            record.IsSolved = isSolved;
             record.RecordDate = dto.RecordDate == default ? record.RecordDate : dto.RecordDate;
 
             await _db.SaveChangesAsync();
             return Ok(new { message = "DSI record updated successfully." });
         }
 
-        // DELETE /api/DSI/{id}
+        // ── DELETE /api/DSI/{id} ────────────────────────────────────────────────
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -1295,7 +1398,7 @@ namespace ElevateERP.API.Controllers
             return Ok(new { message = "Deleted successfully." });
         }
 
-        // GET /api/DSI/export  — returns CSV
+        // ── GET /api/DSI/export — returns CSV ──────────────────────────────────
         [HttpGet("export")]
         public async Task<IActionResult> Export()
         {
@@ -1323,6 +1426,7 @@ namespace ElevateERP.API.Controllers
             return File(bytes, "text/csv", "DSI_Export.csv");
         }
     }
+
     // ─── MOTIVATIONAL MESSAGES ────────────────────────────────────────────────
     [ApiController, Route("api/[controller]")]
     public class MotivationalController : ControllerBase
@@ -1388,37 +1492,64 @@ namespace ElevateERP.API.Controllers
         public async Task<IActionResult> Create([FromForm] MotivationalMessageCreateDto dto,
                                                  IFormFile? image)
         {
-            if (string.IsNullOrWhiteSpace(dto.Message))
-                return BadRequest("Message is required.");
-
-            string? imagePath = null;
-
-            if (image != null && image.Length > 0)
+            try
             {
-                var uploads = Path.Combine(_env.WebRootPath, "uploads", "motivational");
-                Directory.CreateDirectory(uploads);
-                var fileName = $"{Guid.NewGuid()}{Path.GetExtension(image.FileName)}";
-                var filePath = Path.Combine(uploads, fileName);
-                using var stream = System.IO.File.Create(filePath);
-                await image.CopyToAsync(stream);
-                imagePath = $"/uploads/motivational/{fileName}";
+                if (string.IsNullOrWhiteSpace(dto.Message))
+                    return BadRequest("Message is required.");
+
+                string? imagePath = null;
+
+                if (image != null && image.Length > 0)
+                {
+                    var uploads = Path.Combine(_env.WebRootPath, "uploads", "motivational");
+                    Directory.CreateDirectory(uploads);
+                    var fileName = $"{Guid.NewGuid()}{Path.GetExtension(image.FileName)}";
+                    var filePath = Path.Combine(uploads, fileName);
+                    using var stream = System.IO.File.Create(filePath);
+                    await image.CopyToAsync(stream);
+                    imagePath = $"/uploads/motivational/{fileName}";
+                }
+                DateTime dateValue = dto.Date == default
+    ? DateTime.UtcNow
+    : dto.Date;
+
+                if (dateValue.Kind == DateTimeKind.Unspecified)
+                {
+                    dateValue = DateTime.SpecifyKind(dateValue, DateTimeKind.Utc);
+                }
+                else
+                {
+                    dateValue = dateValue.ToUniversalTime();
+                }
+                var msg = new MotivationalMessage
+                {
+                    Message = dto.Message,
+                    Author = dto.Author,
+                    VideoLink = dto.VideoLink ?? "",
+                    ImagePath = imagePath,
+                    //Date = dto.Date == default ? DateTime.Today : dto.Date,
+                    Date = dto.Date == default
+        ? DateTime.UtcNow
+        : DateTime.SpecifyKind(dto.Date, DateTimeKind.Utc),
+                    IsActive = dto.IsActive,
+                    //CreatedAt = DateTime.UtcNow
+                    CreatedAt = DateTime.UtcNow
+                };
+
+                _db.MotivationalMessages.Add(msg);
+                await _db.SaveChangesAsync();
+
+                return Ok(new { message = "Saved and sent to all staff." });
             }
-
-            var msg = new MotivationalMessage
+            catch (Exception ex)
             {
-                Message = dto.Message,
-                Author = dto.Author,
-                VideoLink = dto.VideoLink ?? "",
-                ImagePath = imagePath,
-                Date = dto.Date == default ? DateTime.Today : dto.Date,
-                IsActive = dto.IsActive,
-                CreatedAt = DateTime.UtcNow
-            };
-
-            _db.MotivationalMessages.Add(msg);
-            await _db.SaveChangesAsync();
-
-            return Ok(new { message = "Saved and sent to all staff." });
+                return StatusCode(500, new
+                {
+                    Message = ex.Message,
+                    InnerException = ex.InnerException?.Message,
+                    StackTrace = ex.StackTrace
+                });
+            }
         }
 
         // PUT /api/Motivational/{id}
@@ -2061,4 +2192,4 @@ namespace ElevateERP.API.Controllers
         }
     }
 }
-    
+
