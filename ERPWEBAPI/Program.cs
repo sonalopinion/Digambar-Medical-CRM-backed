@@ -61,7 +61,7 @@
 ////    {
 ////        Title = "ElevateERP API",
 ////        Version = "v1",
-////        Description = "Backend API for ElevateERP — HR & Staff Management System"
+////        Description = "Backend API for ElevateERP â€” HR & Staff Management System"
 ////    });
 
 ////    // Add JWT bearer auth to Swagger UI
@@ -212,6 +212,7 @@ app.UseExceptionHandler(appBuilder =>
         }
     });
 });
+app.MapGet("/", () => "Digambar Medical CRM API is running!");
 app.UseHttpsRedirection();
 
 app.UseRouting();
