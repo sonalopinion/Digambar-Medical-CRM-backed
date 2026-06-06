@@ -10,4 +10,4 @@ WORKDIR /app
 
 COPY --from=build /app/publish .
 
-ENTRYPOINT ["dotnet", "Digambar-Medical-CRM-backed.dll"]
+ENTRYPOINT ["dotnet", "ERPWEBAPI.dll"]
