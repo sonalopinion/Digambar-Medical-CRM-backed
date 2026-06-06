@@ -61,7 +61,7 @@
 ////    {
 ////        Title = "ElevateERP API",
 ////        Version = "v1",
-////        Description = "Backend API for ElevateERP — HR & Staff Management System"
+////        Description = "Backend API for ElevateERP ï¿½ HR & Staff Management System"
 ////    });
 
 ////    // Add JWT bearer auth to Swagger UI
@@ -183,7 +183,12 @@ using (var scope = app.Services.CreateScope())
 }
 
 // Swagger
-if (app.Environment.IsDevelopment())
+// if (app.Environment.IsDevelopment())
+// {
+//     app.UseSwagger();
+//     app.UseSwaggerUI();
+// }
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
@@ -191,7 +196,7 @@ if (app.Environment.IsDevelopment())
 
 // Add this for detailed error messages during development
 app.UseDeveloperExceptionPage();
-app.UseCors("AllowVercel");
+
 // OR if you want JSON error response:
 app.UseExceptionHandler(appBuilder =>
 {
@@ -216,7 +221,8 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
-app.UseCors("ReactPolicy");
+app.UseCors("AllowVercel");
+// app.UseCors("ReactPolicy");
 
 app.MapControllers();
 
