@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9nG+eRpvbTA=",
+  "dgSpecHash": "RcgYnqx+yZk=",
   "success": true,
-  "projectFilePath": "D:\\FullSatckFlutter\\ERP\\Digambar-Medical-CRM-backed\\ERPWEBAPI\\ERPWEBAPI.csproj",
+  "projectFilePath": "D:\\Aftab freelancing\\Medical ERP\\ERP\\Digambar-Medical-CRM-backed\\ERPWEBAPI\\ERPWEBAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Sonal\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\Sonal\\.nuget\\packages\\closedxml\\0.105.0\\closedxml.0.105.0.nupkg.sha512",

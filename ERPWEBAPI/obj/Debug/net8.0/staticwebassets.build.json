@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "eInWVwCbnY8XBsbTxP6CLXlunrU8PiVBn/VnE3aZBdc=",
+  "Hash": "WPzLvxx/fV8ZCrUmOqhf27Errvq3jyXm9SOQw74GkaA=",
   "Source": "ERPWEBAPI",
   "BasePath": "_content/ERPWEBAPI",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "ERPWEBAPI\\wwwroot",
       "Source": "ERPWEBAPI",
-      "ContentRoot": "D:\\FullSatckFlutter\\ERP\\ERPWEBAPI\\ERPWEBAPI\\wwwroot\\",
+      "ContentRoot": "D:\\Aftab freelancing\\Medical ERP\\ERP\\Digambar-Medical-CRM-backed\\ERPWEBAPI\\wwwroot\\",
       "BasePath": "_content/ERPWEBAPI",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "D:\\FullSatckFlutter\\ERP\\ERPWEBAPI\\ERPWEBAPI\\wwwroot\\attachments\\11bce950-fac2-491e-8be4-9977c4f31971_paper.jpeg",
+      "Identity": "D:\\Aftab freelancing\\Medical ERP\\ERP\\Digambar-Medical-CRM-backed\\ERPWEBAPI\\wwwroot\\attachments\\11bce950-fac2-491e-8be4-9977c4f31971_paper.jpeg",
       "SourceId": "ERPWEBAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\FullSatckFlutter\\ERP\\ERPWEBAPI\\ERPWEBAPI\\wwwroot\\",
+      "ContentRoot": "D:\\Aftab freelancing\\Medical ERP\\ERP\\Digambar-Medical-CRM-backed\\ERPWEBAPI\\wwwroot\\",
       "BasePath": "_content/ERPWEBAPI",
       "RelativePath": "attachments/11bce950-fac2-491e-8be4-9977c4f31971_paper.jpeg",
       "AssetKind": "All",
@@ -36,10 +36,10 @@
       "OriginalItemSpec": "wwwroot\\attachments\\11bce950-fac2-491e-8be4-9977c4f31971_paper.jpeg"
     },
     {
-      "Identity": "D:\\FullSatckFlutter\\ERP\\ERPWEBAPI\\ERPWEBAPI\\wwwroot\\attachments\\9d94f9b1-8def-43bf-bc55-b19473752cdc_paper.jpeg",
+      "Identity": "D:\\Aftab freelancing\\Medical ERP\\ERP\\Digambar-Medical-CRM-backed\\ERPWEBAPI\\wwwroot\\attachments\\9d94f9b1-8def-43bf-bc55-b19473752cdc_paper.jpeg",
       "SourceId": "ERPWEBAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\FullSatckFlutter\\ERP\\ERPWEBAPI\\ERPWEBAPI\\wwwroot\\",
+      "ContentRoot": "D:\\Aftab freelancing\\Medical ERP\\ERP\\Digambar-Medical-CRM-backed\\ERPWEBAPI\\wwwroot\\",
       "BasePath": "_content/ERPWEBAPI",
       "RelativePath": "attachments/9d94f9b1-8def-43bf-bc55-b19473752cdc_paper.jpeg",
       "AssetKind": "All",
@@ -55,10 +55,10 @@
       "OriginalItemSpec": "wwwroot\\attachments\\9d94f9b1-8def-43bf-bc55-b19473752cdc_paper.jpeg"
     },
     {
-      "Identity": "D:\\FullSatckFlutter\\ERP\\ERPWEBAPI\\ERPWEBAPI\\wwwroot\\attachments\\c393a6c3-fccd-45fd-8299-2ae49a0e8b29_paper.jpeg",
+      "Identity": "D:\\Aftab freelancing\\Medical ERP\\ERP\\Digambar-Medical-CRM-backed\\ERPWEBAPI\\wwwroot\\attachments\\c393a6c3-fccd-45fd-8299-2ae49a0e8b29_paper.jpeg",
       "SourceId": "ERPWEBAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\FullSatckFlutter\\ERP\\ERPWEBAPI\\ERPWEBAPI\\wwwroot\\",
+      "ContentRoot": "D:\\Aftab freelancing\\Medical ERP\\ERP\\Digambar-Medical-CRM-backed\\ERPWEBAPI\\wwwroot\\",
       "BasePath": "_content/ERPWEBAPI",
       "RelativePath": "attachments/c393a6c3-fccd-45fd-8299-2ae49a0e8b29_paper.jpeg",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\attachments\\c393a6c3-fccd-45fd-8299-2ae49a0e8b29_paper.jpeg"
     },
     {
-      "Identity": "D:\\FullSatckFlutter\\ERP\\ERPWEBAPI\\ERPWEBAPI\\wwwroot\\uploads\\dsi\\06d3f2a9-9b2d-4d32-b6fc-e02a1a0bb335.jpeg",
+      "Identity": "D:\\Aftab freelancing\\Medical ERP\\ERP\\Digambar-Medical-CRM-backed\\ERPWEBAPI\\wwwroot\\uploads\\dsi\\06d3f2a9-9b2d-4d32-b6fc-e02a1a0bb335.jpeg",
       "SourceId": "ERPWEBAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\FullSatckFlutter\\ERP\\ERPWEBAPI\\ERPWEBAPI\\wwwroot\\",
+      "ContentRoot": "D:\\Aftab freelancing\\Medical ERP\\ERP\\Digambar-Medical-CRM-backed\\ERPWEBAPI\\wwwroot\\",
       "BasePath": "_content/ERPWEBAPI",
       "RelativePath": "uploads/dsi/06d3f2a9-9b2d-4d32-b6fc-e02a1a0bb335.jpeg",
       "AssetKind": "All",
@@ -93,10 +93,10 @@
       "OriginalItemSpec": "wwwroot\\uploads\\dsi\\06d3f2a9-9b2d-4d32-b6fc-e02a1a0bb335.jpeg"
     },
     {
-      "Identity": "D:\\FullSatckFlutter\\ERP\\ERPWEBAPI\\ERPWEBAPI\\wwwroot\\uploads\\motivational\\9a951d4a-0f84-410f-887e-a20a0fe4ba97.jpeg",
+      "Identity": "D:\\Aftab freelancing\\Medical ERP\\ERP\\Digambar-Medical-CRM-backed\\ERPWEBAPI\\wwwroot\\uploads\\motivational\\9a951d4a-0f84-410f-887e-a20a0fe4ba97.jpeg",
       "SourceId": "ERPWEBAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\FullSatckFlutter\\ERP\\ERPWEBAPI\\ERPWEBAPI\\wwwroot\\",
+      "ContentRoot": "D:\\Aftab freelancing\\Medical ERP\\ERP\\Digambar-Medical-CRM-backed\\ERPWEBAPI\\wwwroot\\",
       "BasePath": "_content/ERPWEBAPI",
       "RelativePath": "uploads/motivational/9a951d4a-0f84-410f-887e-a20a0fe4ba97.jpeg",
       "AssetKind": "All",
@@ -112,10 +112,10 @@
       "OriginalItemSpec": "wwwroot\\uploads\\motivational\\9a951d4a-0f84-410f-887e-a20a0fe4ba97.jpeg"
     },
     {
-      "Identity": "D:\\FullSatckFlutter\\ERP\\ERPWEBAPI\\ERPWEBAPI\\wwwroot\\uploads\\reports\\44dfbaa4-b48d-4c5c-ba09-79078a324ac2_FeedbackReport (1).xlsx",
+      "Identity": "D:\\Aftab freelancing\\Medical ERP\\ERP\\Digambar-Medical-CRM-backed\\ERPWEBAPI\\wwwroot\\uploads\\reports\\44dfbaa4-b48d-4c5c-ba09-79078a324ac2_FeedbackReport (1).xlsx",
       "SourceId": "ERPWEBAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\FullSatckFlutter\\ERP\\ERPWEBAPI\\ERPWEBAPI\\wwwroot\\",
+      "ContentRoot": "D:\\Aftab freelancing\\Medical ERP\\ERP\\Digambar-Medical-CRM-backed\\ERPWEBAPI\\wwwroot\\",
       "BasePath": "_content/ERPWEBAPI",
       "RelativePath": "uploads/reports/44dfbaa4-b48d-4c5c-ba09-79078a324ac2_FeedbackReport (1).xlsx",
       "AssetKind": "All",
@@ -131,10 +131,10 @@
       "OriginalItemSpec": "wwwroot\\uploads\\reports\\44dfbaa4-b48d-4c5c-ba09-79078a324ac2_FeedbackReport (1).xlsx"
     },
     {
-      "Identity": "D:\\FullSatckFlutter\\ERP\\ERPWEBAPI\\ERPWEBAPI\\wwwroot\\uploads\\reports\\7c3bc082-8aca-4650-9ca9-9596afb5ed96_FeedbackReport (1).xlsx",
+      "Identity": "D:\\Aftab freelancing\\Medical ERP\\ERP\\Digambar-Medical-CRM-backed\\ERPWEBAPI\\wwwroot\\uploads\\reports\\7c3bc082-8aca-4650-9ca9-9596afb5ed96_FeedbackReport (1).xlsx",
       "SourceId": "ERPWEBAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\FullSatckFlutter\\ERP\\ERPWEBAPI\\ERPWEBAPI\\wwwroot\\",
+      "ContentRoot": "D:\\Aftab freelancing\\Medical ERP\\ERP\\Digambar-Medical-CRM-backed\\ERPWEBAPI\\wwwroot\\",
       "BasePath": "_content/ERPWEBAPI",
       "RelativePath": "uploads/reports/7c3bc082-8aca-4650-9ca9-9596afb5ed96_FeedbackReport (1).xlsx",
       "AssetKind": "All",
@@ -150,10 +150,10 @@
       "OriginalItemSpec": "wwwroot\\uploads\\reports\\7c3bc082-8aca-4650-9ca9-9596afb5ed96_FeedbackReport (1).xlsx"
     },
     {
-      "Identity": "D:\\FullSatckFlutter\\ERP\\ERPWEBAPI\\ERPWEBAPI\\wwwroot\\uploads\\reports\\fb7b0705-54d8-4951-a61d-c6c8d2eb7003_FeedbackReport.xlsx",
+      "Identity": "D:\\Aftab freelancing\\Medical ERP\\ERP\\Digambar-Medical-CRM-backed\\ERPWEBAPI\\wwwroot\\uploads\\reports\\fb7b0705-54d8-4951-a61d-c6c8d2eb7003_FeedbackReport.xlsx",
       "SourceId": "ERPWEBAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\FullSatckFlutter\\ERP\\ERPWEBAPI\\ERPWEBAPI\\wwwroot\\",
+      "ContentRoot": "D:\\Aftab freelancing\\Medical ERP\\ERP\\Digambar-Medical-CRM-backed\\ERPWEBAPI\\wwwroot\\",
       "BasePath": "_content/ERPWEBAPI",
       "RelativePath": "uploads/reports/fb7b0705-54d8-4951-a61d-c6c8d2eb7003_FeedbackReport.xlsx",
       "AssetKind": "All",

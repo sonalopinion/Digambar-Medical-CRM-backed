@@ -9,67 +9,109 @@ using System.ComponentModel.DataAnnotations;
 namespace ElevateERP.API.Controllers
 {
     // ─── REWARDS ──────────────────────────────────────────────────────────────
-    [ApiController, Route("api/[controller]")]
+    [ApiController]
+    [Route("api/[controller]")]
     public class RewardsController : ControllerBase
     {
         private readonly AppDbContext _db;
+
         public RewardsController(AppDbContext db) => _db = db;
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        // Parse "2026-06-13" or "2026-06-13T00:00:00Z" safely as UTC
+        private static DateTime ParseDateUtc(string raw)
         {
-            var list = await _db.Rewards.OrderBy(r => r.RewardName)
-                .Select(r => new RewardDto { Id = r.Id, RewardName = r.RewardName, Description = r.Description, PointsValue = r.PointsValue })
-                .ToListAsync();
-            return Ok(list);
+            if (DateTime.TryParse(
+                    raw,
+                    System.Globalization.CultureInfo.InvariantCulture,
+                    System.Globalization.DateTimeStyles.RoundtripKind,
+                    out var dt))
+            {
+                return dt.Kind == DateTimeKind.Unspecified
+                    ? DateTime.SpecifyKind(dt, DateTimeKind.Utc)
+                    : dt.ToUniversalTime();
+            }
+            return DateTime.UtcNow;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] RewardCreateDto dto)
-        {
-            var r = new Reward { RewardName = dto.RewardName, Description = dto.Description, PointsValue = dto.PointsValue };
-            _db.Rewards.Add(r); await _db.SaveChangesAsync();
-            return Ok(new RewardDto { Id = r.Id, RewardName = r.RewardName, Description = r.Description, PointsValue = r.PointsValue });
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] RewardCreateDto dto)
-        {
-            var r = await _db.Rewards.FindAsync(id);
-            if (r == null) return NotFound();
-            r.RewardName = dto.RewardName; r.Description = dto.Description; r.PointsValue = dto.PointsValue;
-            await _db.SaveChangesAsync(); return Ok();
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var r = await _db.Rewards.FindAsync(id);
-            if (r == null) return NotFound();
-            _db.Rewards.Remove(r); await _db.SaveChangesAsync(); return Ok();
-        }
-
-        // Staff Rewards
+        // ── GET /api/Rewards/staff-rewards ──────────────────────────────────────
         [HttpGet("staff-rewards")]
         public async Task<IActionResult> GetStaffRewards([FromQuery] int? staffId)
         {
-            var q = _db.StaffRewards.Include(sr => sr.Staff).Include(sr => sr.Reward).AsQueryable();
-            if (staffId.HasValue) q = q.Where(sr => sr.StaffId == staffId);
-            var list = await q.OrderByDescending(sr => sr.AwardedAt)
+            var q = _db.StaffRewards
+                       .Include(sr => sr.Staff)
+                       .AsQueryable();
+
+            if (staffId.HasValue)
+                q = q.Where(sr => sr.StaffId == staffId.Value);
+
+            var list = await q
+                .OrderByDescending(sr => sr.AwardedAt)
                 .Select(sr => new StaffRewardDto
                 {
-                    Id = sr.Id, StaffId = sr.StaffId, StaffName = sr.Staff!.StaffName,
-                    RewardId = sr.RewardId, RewardName = sr.Reward!.RewardName,
-                    Notes = sr.Notes, AwardedAt = sr.AwardedAt
-                }).ToListAsync();
+                    Id = sr.Id,
+                    StaffId = sr.StaffId,
+                    StaffName = sr.Staff != null ? sr.Staff.StaffName : "",
+                    PointsValue = sr.PointsValue,
+                    Notes = sr.Notes,
+                    AwardedAt = sr.AwardedAt
+                })
+                .ToListAsync();
+
             return Ok(list);
         }
 
+        // ── POST /api/Rewards/staff-rewards ─────────────────────────────────────
         [HttpPost("staff-rewards")]
         public async Task<IActionResult> AssignReward([FromBody] StaffRewardCreateDto dto)
         {
-            var sr = new StaffReward { StaffId = dto.StaffId, RewardId = dto.RewardId, Notes = dto.Notes };
-            _db.StaffRewards.Add(sr); await _db.SaveChangesAsync(); return Ok();
+            if (dto == null)
+                return BadRequest("Request body is required.");
+
+            var sr = new StaffReward
+            {
+                StaffId = dto.StaffId,
+                PointsValue = dto.PointsValue,
+                Notes = dto.Notes ?? "",
+                AwardedAt = ParseDateUtc(dto.AwardedAt)
+            };
+
+            _db.StaffRewards.Add(sr);
+            await _db.SaveChangesAsync();
+
+            return Ok(new { sr.Id });
+        }
+
+        // ── PUT /api/Rewards/staff-rewards/{id} ─────────────────────────────────
+        [HttpPut("staff-rewards/{id}")]
+        public async Task<IActionResult> UpdateStaffReward(int id, [FromBody] StaffRewardCreateDto dto)
+        {
+            if (dto == null)
+                return BadRequest("Request body is required.");
+
+            var sr = await _db.StaffRewards.FindAsync(id);
+            if (sr == null)
+                return NotFound($"StaffReward with id {id} not found.");
+
+            sr.StaffId = dto.StaffId;
+            sr.PointsValue = dto.PointsValue;
+            sr.Notes = dto.Notes ?? "";
+            sr.AwardedAt = ParseDateUtc(dto.AwardedAt);
+
+            await _db.SaveChangesAsync();
+            return Ok();
+        }
+
+        // ── DELETE /api/Rewards/staff-rewards/{id} ──────────────────────────────
+        [HttpDelete("staff-rewards/{id}")]
+        public async Task<IActionResult> DeleteStaffReward(int id)
+        {
+            var sr = await _db.StaffRewards.FindAsync(id);
+            if (sr == null)
+                return NotFound($"StaffReward with id {id} not found.");
+
+            _db.StaffRewards.Remove(sr);
+            await _db.SaveChangesAsync();
+            return Ok();
         }
     }
 

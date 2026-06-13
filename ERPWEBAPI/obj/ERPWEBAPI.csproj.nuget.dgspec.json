@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\FullSatckFlutter\\ERP\\Digambar-Medical-CRM-backed\\ERPWEBAPI\\ERPWEBAPI.csproj": {}
+    "D:\\Aftab freelancing\\Medical ERP\\ERP\\Digambar-Medical-CRM-backed\\ERPWEBAPI\\ERPWEBAPI.csproj": {}
   },
   "projects": {
-    "D:\\FullSatckFlutter\\ERP\\Digambar-Medical-CRM-backed\\ERPWEBAPI\\ERPWEBAPI.csproj": {
+    "D:\\Aftab freelancing\\Medical ERP\\ERP\\Digambar-Medical-CRM-backed\\ERPWEBAPI\\ERPWEBAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\FullSatckFlutter\\ERP\\Digambar-Medical-CRM-backed\\ERPWEBAPI\\ERPWEBAPI.csproj",
+        "projectUniqueName": "D:\\Aftab freelancing\\Medical ERP\\ERP\\Digambar-Medical-CRM-backed\\ERPWEBAPI\\ERPWEBAPI.csproj",
         "projectName": "ERPWEBAPI",
-        "projectPath": "D:\\FullSatckFlutter\\ERP\\Digambar-Medical-CRM-backed\\ERPWEBAPI\\ERPWEBAPI.csproj",
+        "projectPath": "D:\\Aftab freelancing\\Medical ERP\\ERP\\Digambar-Medical-CRM-backed\\ERPWEBAPI\\ERPWEBAPI.csproj",
         "packagesPath": "C:\\Users\\Sonal\\.nuget\\packages\\",
-        "outputPath": "D:\\FullSatckFlutter\\ERP\\Digambar-Medical-CRM-backed\\ERPWEBAPI\\obj\\",
+        "outputPath": "D:\\Aftab freelancing\\Medical ERP\\ERP\\Digambar-Medical-CRM-backed\\ERPWEBAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Sonal\\AppData\\Roaming\\NuGet\\NuGet.Config",

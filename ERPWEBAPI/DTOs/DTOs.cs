@@ -165,22 +165,41 @@ namespace ElevateERP.API.DTOs
         public string? Description { get; set; }
         public decimal? PointsValue { get; set; }
     }
-    public class StaffRewardCreateDto
-    {
-        public int StaffId { get; set; }
-        public int RewardId { get; set; }
-        public string? Notes { get; set; }
-    }
+
     public class StaffRewardDto
     {
         public int Id { get; set; }
         public int StaffId { get; set; }
-        public string? StaffName { get; set; }
-        public int RewardId { get; set; }
-        public string? RewardName { get; set; }
-        public string? Notes { get; set; }
+        public string StaffName { get; set; } = "";
+        public int PointsValue { get; set; }
+        public string Notes { get; set; } = "";
         public DateTime AwardedAt { get; set; }
     }
+
+    public class StaffRewardCreateDto
+    {
+        public int StaffId { get; set; }
+        public int PointsValue { get; set; }
+        public string Notes { get; set; } = "";
+        public string AwardedAt { get; set; } = "";  // accepts "2026-06-13" or full ISO
+    }
+
+    //public class StaffRewardCreateDto
+    //{
+    //    public int StaffId { get; set; }
+    //    public int RewardId { get; set; }
+    //    public string? Notes { get; set; }
+    //}
+    //public class StaffRewardDto
+    //{
+    //    public int Id { get; set; }
+    //    public int StaffId { get; set; }
+    //    public string? StaffName { get; set; }
+    //    public int RewardId { get; set; }
+    //    public string? RewardName { get; set; }
+    //    public string? Notes { get; set; }
+    //    public DateTime AwardedAt { get; set; }
+    //}
 
     // ─── PERFORMANCE ──────────────────────────────────────────────────────────
     public class PerformanceDto

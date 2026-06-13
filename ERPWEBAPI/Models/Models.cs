@@ -84,13 +84,14 @@ namespace ElevateERP.API.Models
     // ─── STAFF REWARD ─────────────────────────────────────────────────────────
     public class StaffReward
     {
-        [Key] public int Id { get; set; }
-        public int StaffId  { get; set; }
-        [ForeignKey("StaffId")]  public Staff?  Staff  { get; set; }
-        public int RewardId { get; set; }
-        [ForeignKey("RewardId")] public Reward? Reward { get; set; }
-        [MaxLength(500)] public string? Notes   { get; set; }
-        public DateTime AwardedAt { get; set; } = DateTime.UtcNow;
+        public int Id { get; set; }
+
+        public int StaffId { get; set; }
+        public Staff? Staff { get; set; }
+
+        public int PointsValue { get; set; }   // points stored directly, no Reward FK needed
+        public string Notes { get; set; } = "";
+        public DateTime AwardedAt { get; set; }
     }
 
     // ─── PERFORMANCE ──────────────────────────────────────────────────────────
